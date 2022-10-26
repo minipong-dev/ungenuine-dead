@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-//import { connect } from "./redux/blockchain/blockchainActions";
+import { connect } from "./redux/blockchain/blockchainActions";
 import { fetchData } from "./redux/data/dataActions";
 import * as s from "./styles/globalStyles";
 import styled from "styled-components";
@@ -404,66 +404,9 @@ function App() {
                 <s.SpacerLarge/>
                 <s.SpacerLarge/>
                 <s.SpacerLarge/>
-
-                <s.TextTitle
-                    style={{
-                        textAlign: "center",
-                        color: "var(--accent-text)",
-                        fontFamily: "customfont",
-                        fontWeight: "normal",
-                        //textShadow: "2px 2px blue",
-                    }}
-                >
-
-                    <StyledLogo alt={"logo"} src={"/config/images/ViperwareLogo.png"} />
-
-
-                </s.TextTitle>
-
-                <s.SpacerLarge/>
-                <s.SpacerLarge/>
-                <s.SpacerLarge/>
                 <s.SpacerLarge/>
                 <s.SpacerLarge/>
 
-                <div class="flexbox-container">
-                    <div class="flexbox-item">
-                        <s.TextDescription
-                            style={{
-                                textAlign: "center",
-                                color: "white",
-                                fontWeight: "bold",
-                                fontFamily: "customfont"
-                            }}
-                        >
-                            <div class="typing-gm">
-                                gm. wagmi.
-                            </div>
-                        </s.TextDescription>
-                    </div>
-                    <s.SpacerLarge />
-                    <div class="flexbox-item">
-                        <s.TextDescription
-
-                            style={{
-                                textAlign: "center",
-                                color: "white",
-                                fontWeight: "normal",
-                                fontFamily: "customfont",
-                                fontSize: "24px",
-                            }}
-                        >   
-                            <div class="jk">
-                                (just kidding. we're not that cringe)<br/>
-                            </div>
-                            <a target="_blank" href="https://twitter.com/ViperwareLabs">
-                                <LogoButtonImg src="/config/images/TWIT_LOGO.png" />
-                            </a>
-                            <br/><br/><br/>
-                            {/* <DownImg src="/config/images/down.png" /> */}
-                        </s.TextDescription>
-                    </div>
-                </div>
 
                 <s.Container jc={"center"} ai={"left"} style={{ width: "90%" }}>
                     
@@ -471,7 +414,7 @@ function App() {
 
                         style={{
                             textAlign: "center",
-                            color: "white",
+                            color: "#024d1e",
                             fontFamily: "customfont",
                             fontSize: "30px",
                             fontWeight: "900",
@@ -480,11 +423,14 @@ function App() {
 
                     >
 
-
+                        Ungenuine Dead<br />
 
                     </s.TextDescription>
 
                     <s.SpacerLarge/>
+
+                        <StyledImg src="../public/config/images/UngenuineDead.gif"/>
+
                     <s.SpacerLarge/>
 
 
@@ -492,7 +438,7 @@ function App() {
 
                         style={{
                             textAlign: "center",
-                            color: "white",
+                            color: "#024d1e",
                             fontFamily: "customfont",
                             fontSize: "28px",
                             fontWeight: "normal",
