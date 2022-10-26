@@ -396,7 +396,6 @@ function App() {
                                             >
                                                 Remaining Supply: {(data.totalSupply ? (CONFIG.MAX_SUPPLY - data.totalSupply) : CONFIG.MAX_SUPPLY)}/{CONFIG.MAX_SUPPLY}<br/>
                                                 2222 Whitelist // 1111 Public<br/><br/>
-                                                Whitelist: FREE<br/>
                                                 Public: FREE<br/>
                                             </s.TextDescription>
                                             <s.SpacerMedium />
@@ -482,54 +481,7 @@ function App() {
                                                     {claimingNft ? "PROCESSING" : "PUBLIC MINT"}
                                                 </StyledButton>
                                             </s.Container>
-
-                                            <s.SpacerSmall />
-
-                                            <s.Container ai={"center"} jc={"center"} fd={"row"}>
-                                                <StyledButton
-                                                    disabled={claimingNft ? 1 : 0}
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        claimWhitelistNFTs();
-                                                        getData();
-                                                    }}
-                                                    style={{
-                                                        textAlign: "center",
-                                                        color: "#024d1e",
-                                                        fontSize: "20px",
-                                                        fontFamily: "customfont",
-                                                        fontWeight: "700",
-                                                    }}
-                                                >
-                                                    {claimingNft ? "PROCESSING" : "WHITELIST CLAIM"}
-                                                </StyledButton>
-                                            </s.Container>
                                             <s.SpacerMedium />
-
-                                            <s.TextDescription
-
-                                                style={{
-                                                    textAlign: "center",
-                                                    color: "#024d1e",
-                                                    fontSize: "20px",
-                                                    fontFamily: "customfont",
-                                                }}
-                                            >
-                                                {invalidMint}
-                                            </s.TextDescription>
-
-                                            <s.TextDescription
-
-                                                style={{
-                                                    textAlign: "center",
-                                                    color: "#024d1e",
-                                                    fontSize: "20px",
-                                                    fontFamily: "customfont",
-                                                    fontWeight: "700",
-                                                }}
-                                            >
-                                                Max 2 mints per whitelisted wallet<br/>
-                                            </s.TextDescription>
 
                                         </>
                                     )}
