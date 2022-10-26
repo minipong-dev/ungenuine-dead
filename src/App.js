@@ -176,6 +176,8 @@ function App() {
     //const [amountTokens, setTokens] = useState(0);
     //const [myTokens, setListTokens] = useState([]);
 
+    const [invalidMint, setInvalidMint] = useState("");
+
     // Contract Data
     const data = useSelector((state) => state.data);
     const [claimingNft, setClaimingNft] = useState(false);
@@ -220,13 +222,20 @@ function App() {
     };
 
     const claimWhitelistNFTs = async () => {
+
         let cost = CONFIG.WL_WEI_COST;
         let gasLimit = CONFIG.GAS_LIMIT;
         let totalCostWei = String(cost * mintAmount);
 
         let totalGasLimit = String(gasLimit * mintAmount);
 
-        blockchain.smartContract.methods
+        if (mintAmount > 2) {
+
+            setInvalidMint("Error: You can only mint 2 NFTs from whitelist");
+
+        } else {
+
+            blockchain.smartContract.methods
             .mintWhitelist(proof, mintAmount)
             .send({
                 gasLimit: String(totalGasLimit),
@@ -234,7 +243,8 @@ function App() {
                 from: blockchain.account,
                 value: totalCostWei,
             });
-
+            
+        }
     };
 
     const decrementMintAmount = () => {
@@ -362,6 +372,23 @@ function App() {
 
 
                                             </StyledButton>
+
+                                            {invalidMint !== "" ? (
+                                                <>
+                                                    <s.SpacerSmall />
+                                                    <s.TextDescription
+
+                                                        style={{
+                                                            textAlign: "center",
+                                                            color: "#024d1e",
+                                                            fontFamily: "customfont",
+                                                        }}
+                                                    >
+                                                        {invalidMint}
+                                                    </s.TextDescription>
+                                                </>
+                                            ) : null}
+                                            
                                             {blockchain.errorMsg !== "" ? (
                                                 <>
                                                     <s.SpacerSmall />
