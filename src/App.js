@@ -213,7 +213,6 @@ function App() {
         blockchain.smartContract.methods
             .mintPublic(mintAmount)
             .send({
-                gasLimit: String(totalGasLimit),
                 to: CONFIG.CONTRACT_ADDRESS,
                 from: blockchain.account,
                 value: totalCostWei,
@@ -238,12 +237,11 @@ function App() {
             blockchain.smartContract.methods
             .mintWhitelist(proof, mintAmount)
             .send({
-                gasLimit: String(totalGasLimit),
                 to: CONFIG.CONTRACT_ADDRESS,
                 from: blockchain.account,
                 value: totalCostWei,
             });
-            
+
         }
     };
 
