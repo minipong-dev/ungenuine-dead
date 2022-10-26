@@ -429,28 +429,209 @@ function App() {
 
                     <s.SpacerLarge/>
 
-                        <StyledImg src="../public/config/images/UngenuineDead.gif"/>
+                        <StyledImg style={{
+                            margin: "auto",
+                        }}
+                        src="/config/images/UngenuineDead.gif"/>
 
                     <s.SpacerLarge/>
 
 
                     <s.TextDescription
 
-                        style={{
-                            textAlign: "center",
-                            color: "#024d1e",
-                            fontFamily: "customfont",
-                            fontSize: "28px",
-                            fontWeight: "normal",
+                            style={{
+                                textAlign: "center",
+                                color: "white",
+                                fontWeight: "normal",
+                                fontFamily: "customfont",
+                                fontSize: "24px",
+                            }}
+                        >   
+                            <br/>
+                            {blockchain.account === "" ||
+                                        blockchain.smartContract === null ? (
+                                        <s.Container ai={"center"} jc={"center"}>
+                                            <s.SpacerLarge />
+                                            <StyledButton
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    dispatch(connect());
+                                                    getData();
+                                                }}
+                                                style={{
+                                                    textAlign: "center",
+                                                    color: "#024d1e",
+                                                    fontSize: "20px",
+                                                    fontFamily: "Montserrat, sans-serif",
+                                                    fontWeight: "700",
+                                                }}
+                                            > Connect
+                                                <br />
 
-                        }}
-
-                    >
-                        
-                        <br />
 
 
-                    </s.TextDescription>
+                                            </StyledButton>
+                                            {blockchain.errorMsg !== "" ? (
+                                                <>
+                                                    <s.SpacerSmall />
+                                                    <s.TextDescription
+
+                                                        style={{
+                                                            textAlign: "center",
+                                                            color: "#024d1e",
+                                                            fontFamily: "customfont",
+                                                        }}
+                                                    >
+                                                        {blockchain.errorMsg}
+                                                    </s.TextDescription>
+                                                </>
+                                            ) : null}
+                                        </s.Container>
+                                    ) : (
+                                        <>
+                                            <s.TextDescription
+
+                                                style={{
+                                                    textAlign: "center",
+                                                    color: "#024d1e",
+                                                    fontSize: "22px",
+                                                    fontFamily: "customfont",
+                                                    fontWeight: "700",
+                                                }}
+                                            >
+                                                Mint
+                                            </s.TextDescription>
+                                            <s.SpacerMedium />
+                                            <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                                                <StyledRoundButton
+                                                    disabled={claimingNft ? 1 : 0}
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        decrementMintAmount();
+                                                    }}
+                                                    style={{
+                                                        textAlign: "center",
+                                                        fontSize: "20px",
+                                                        color: "black",
+                                                        color: "#024d1e",
+                                                        fontWeight: "700",
+                                                    }}
+                                                >
+                                                    -
+                                                </StyledRoundButton>
+                                                <s.SpacerMedium />
+                                                <s.TextDescription
+
+                                                    style={{
+                                                        textAlign: "center",
+                                                        color: "#024d1e",
+                                                        fontSize: "20px",
+                                                        fontFamily: "customfont",
+                                                        fontWeight: "700",
+                                                    }}
+                                                >
+                                                    {mintAmount}
+                                                </s.TextDescription>
+                                                <s.SpacerMedium />
+                                                <StyledRoundButton
+                                                    disabled={claimingNft ? 1 : 0}
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        incrementMintAmount();
+                                                    }}
+                                                    style={{
+                                                        textAlign: "center",
+                                                        color: "#024d1e",
+                                                        fontSize: "20px",
+                                                        fontFamily: "customfont",
+                                                        fontWeight: "700",
+                                                    }}
+                                                >
+                                                    +
+                                                </StyledRoundButton>
+                                            </s.Container>
+
+                                            <s.TextDescription
+
+                                                style={{
+                                                    textAlign: "center",
+                                                    color: "#024d1e",
+                                                    fontFamily: "customfont",
+                                                }}
+                                            >
+                                                {feedback}
+                                            </s.TextDescription>
+
+                                            <s.SpacerMedium />
+
+                                            <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                                                <StyledButton
+                                                    disabled={claimingNft ? 1 : 0}
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        claimNFTs();
+                                                        getData();
+                                                    }}
+                                                    style={{
+                                                        textAlign: "center",
+                                                        color: "#024d1e",
+                                                        fontSize: "20px",
+                                                        fontFamily: "customfont",
+                                                        fontWeight: "700",
+                                                    }}
+                                                >
+                                                    {claimingNft ? "PROCESSING" : "PUBLIC MINT"}
+                                                </StyledButton>
+                                            </s.Container>
+
+                                            <s.SpacerSmall />
+
+                                            <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                                                <StyledButton
+                                                    disabled={claimingNft ? 1 : 0}
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        claimFreeNFTs();
+                                                        getData();
+                                                    }}
+                                                    style={{
+                                                        textAlign: "center",
+                                                        color: "#024d1e",
+                                                        fontSize: "20px",
+                                                        fontFamily: "customfont",
+                                                        fontWeight: "700",
+                                                    }}
+                                                >
+                                                    {claimingNft ? "PROCESSING" : "WHITELIST CLAIM"}
+                                                </StyledButton>
+                                            </s.Container>
+                                            <s.SpacerMedium />
+                                            {/* <s.TextDescription
+
+                                                style={{
+                                                    textAlign: "center",
+                                                    color: "rgb(112, 161, 250)",
+                                                    fontSize: "16px",
+                                                    fontFamily: "customfont",
+                                                    fontWeight: "700",
+                                                }}
+                                            >
+                                                Minting enabled at 11am PST<br/>
+                                                Only 1 free claim per whitelisted wallet<br/>
+                                            </s.TextDescription> */}
+
+                                        </>
+                                    )}
+
+                                    <s.SpacerLarge />
+                                    <s.SpacerLarge />
+                                    <s.SpacerLarge />
+                                    <s.SpacerLarge />
+                                    <s.SpacerLarge />
+
+
+                            {/* <DownImg src="/config/images/down.png" /> */}
+                        </s.TextDescription>
                     <s.Container>
                     </s.Container>
                     {/* <div class="container">
