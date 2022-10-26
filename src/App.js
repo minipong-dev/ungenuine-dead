@@ -396,8 +396,8 @@ function App() {
                                             >
                                                 Remaining Supply: {(data.totalSupply ? (CONFIG.MAX_SUPPLY - data.totalSupply) : CONFIG.MAX_SUPPLY)}/{CONFIG.MAX_SUPPLY}<br/>
                                                 2222 Whitelist // 1111 Public<br/><br/>
-                                                Whitelist: .003 ETH<br/>
-                                                Public: .005 ETH<br/>
+                                                Whitelist: FREE<br/>
+                                                Public: FREE<br/>
                                             </s.TextDescription>
                                             <s.SpacerMedium />
                                             <s.Container ai={"center"} jc={"center"} fd={"row"}>
