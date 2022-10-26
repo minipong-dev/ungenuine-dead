@@ -192,7 +192,8 @@ function App() {
         NFT_NAME: "",
         SYMBOL: "",
         MAX_SUPPLY: 1,
-        WEI_COST: 0,
+        PUBLIC_WEI_COST: 0,
+        WL_WEI_COST: 0,
         DISPLAY_COST: 0,
         GAS_LIMIT: 0,
         MARKETPLACE: "",
@@ -201,150 +202,40 @@ function App() {
     });
 
     const claimNFTs = async () => {
-        let cost = CONFIG.WEI_COST;
+        let cost = CONFIG.PUBLIC_WEI_COST;
         let gasLimit = CONFIG.GAS_LIMIT;
         let totalCostWei = String(cost * mintAmount);
-        gasLimit = (132705 + 3508 * (mintAmount - 1)) / mintAmount;
-
-        //mintedSoFar = data.mintedCount((blockchain.account).toString);
-        const mintedSoFar = await blockchain.smartContract.methods.mintedCount(blockchain.account).call(); // moose
-        console.log("Minted:");
-        console.log(mintedSoFar);
-        console.log("-");
-
-        //FREE Mint Cost
-        if (mintedSoFar <= 2) {
-            let freeMintsDecrement = mintAmount - (3 - mintedSoFar);
-            if (freeMintsDecrement < 0) freeMintsDecrement = 0;
-            totalCostWei = String(cost * (freeMintsDecrement));
-            gasLimit = (132705 + 3508 * (mintAmount - 1)) / mintAmount;
-            console.log(mintedSoFar);
-        }
-
-        //FREE Mint Cost
-        /*if (mintAmount <= 2) {
-            totalCostWei = String(0);
-            gasLimit = (132705 + 3508 * (mintAmount - 1)) / mintAmount;
-        } else {
-            totalCostWei = String(cost * (mintAmount - 2));
-            gasLimit = (132705 + 3508 * (mintAmount - 1)) / mintAmount;
-        }*/
-
-        /*//FREE Mint Cost
-        if ((data.totalSupply) < 5555) {
-            totalCostWei = String(0);
-            gasLimit = (132705 + 3508 * (mintAmount - 1)) / mintAmount;
-        } else {
-            totalCostWei = String(cost * mintAmount);
-            gasLimit = (132705 + 3508 * (mintAmount - 1)) / mintAmount;
-        }*/
 
         let totalGasLimit = String(gasLimit * mintAmount);
-        console.log("Cost: ", totalCostWei);
-        console.log("Gas limit: ", totalGasLimit);
-        setFeedback(`Prepare to get rugged...`);
-        setClaimingNft(true);
+
         blockchain.smartContract.methods
-            .PUBLIC_MINT(mintAmount)
+            .mintPublic(mintAmount)
             .send({
                 gasLimit: String(totalGasLimit),
                 to: CONFIG.CONTRACT_ADDRESS,
                 from: blockchain.account,
                 value: totalCostWei,
-
-            })
-            .once("error", (err) => {
-                console.log(err);
-                setFeedback("Sorry, something went wrong. We were unable to rug you.");
-                setClaimingNft(false);
-            })
-            .then((receipt) => {
-                console.log(receipt);
-                setFeedback(`You just got rugged. Bitch.`);
-                setClaimingNft(false);
-                dispatch(fetchData(blockchain.account));
             });
 
     };
 
-    const claimFreeNFTs = () => {
-        //let cost = CONFIG.WEI_COST;
+    const claimWhitelistNFTs = async () => {
+        let cost = CONFIG.WL_WEI_COST;
         let gasLimit = CONFIG.GAS_LIMIT;
-        let freeMintAmount = 1;
-        let totalCostWei = String(0);
+        let totalCostWei = String(cost * mintAmount);
 
-        //FREE Mint Cost
-        gasLimit = (132705 + 3508 * (freeMintAmount - 1)) / freeMintAmount;
+        let totalGasLimit = String(gasLimit * mintAmount);
 
-        let totalGasLimit = String(gasLimit * freeMintAmount);
-        console.log("Cost: ", totalCostWei);
-        console.log("Gas limit: ", totalGasLimit);
-        setFeedback(`Prepare to get rugged...`);
-        setClaimingNft(true);
         blockchain.smartContract.methods
-            .mint(freeMintAmount)
+            .mintWhitelist(proof, mintAmount)
             .send({
                 gasLimit: String(totalGasLimit),
                 to: CONFIG.CONTRACT_ADDRESS,
                 from: blockchain.account,
                 value: totalCostWei,
-
-            })
-            .once("error", (err) => {
-                console.log(err);
-                setFeedback("Sorry, something went wrong. We were unable to rug you.");
-                setClaimingNft(false);
-            })
-            .then((receipt) => {
-                console.log(receipt);
-                setFeedback(`You just got rugged. Bitch.`);
-                setClaimingNft(false);
-                dispatch(fetchData(blockchain.account));
             });
-    };
-
-    const claimWhitelistNFTs = () => {
-        //let cost = CONFIG.WEI_COST;
-        let gasLimit = CONFIG.GAS_LIMIT;
-        let freeMintAmount = 1;
-        let totalCostWei = String(0);
-
-        //FREE Mint Cost
-        gasLimit = (132705 + 3508 * (freeMintAmount - 1)) / freeMintAmount;
-
-        let totalGasLimit = String(gasLimit * freeMintAmount);
-        console.log("Cost: ", totalCostWei);
-        console.log("Gas limit: ", totalGasLimit);
-        setFeedback(`Prepare to get rugged...`);
-        setClaimingNft(true);
-
-        //contract.methods.safeMint(address, proof).send({ from: address }) // will be called on click of the mint button
-
-        blockchain.smartContract.methods.WHITELIST_MINT(proof).send({ from: blockchain.account })
-
-        /*blockchain.smartContract.methods
-            .safeMint(blockchain.account, proof)
-            .send({
-                gasLimit: String(totalGasLimit),
-                to: CONFIG.CONTRACT_ADDRESS,
-                from: blockchain.account,
-                value: totalCostWei,
-
-            })
-            .once("error", (err) => {
-                console.log(err);
-                setFeedback("Sorry, something went wrong. We were unable to rug you.");
-                setClaimingNft(false);
-            })
-            .then((receipt) => {
-                console.log(receipt);
-                setFeedback(`You just got rugged. Bitch.`);
-                setClaimingNft(false);
-                dispatch(fetchData(blockchain.account));
-            });*/
 
     };
-
 
     const decrementMintAmount = () => {
         let newMintAmount = mintAmount - 1;
@@ -462,7 +353,7 @@ function App() {
                                                     textAlign: "center",
                                                     color: "#024d1e",
                                                     fontSize: "20px",
-                                                    fontFamily: "Montserrat, sans-serif",
+                                                    fontFamily: "customfont",
                                                     fontWeight: "700",
                                                 }}
                                             > Connect
@@ -499,7 +390,8 @@ function App() {
                                                     fontWeight: "700",
                                                 }}
                                             >
-                                                Mint
+                                                Whitelist: .003 ETH<br/>
+                                                Public: .005 ETH<br/>
                                             </s.TextDescription>
                                             <s.SpacerMedium />
                                             <s.Container ai={"center"} jc={"center"} fd={"row"}>
@@ -514,6 +406,7 @@ function App() {
                                                         fontSize: "20px",
                                                         color: "black",
                                                         color: "#024d1e",
+                                                        fontFamily: "customfont",
                                                         fontWeight: "700",
                                                     }}
                                                 >
@@ -591,7 +484,7 @@ function App() {
                                                     disabled={claimingNft ? 1 : 0}
                                                     onClick={(e) => {
                                                         e.preventDefault();
-                                                        claimFreeNFTs();
+                                                        claimWhitelistNFTs();
                                                         getData();
                                                     }}
                                                     style={{
@@ -606,19 +499,18 @@ function App() {
                                                 </StyledButton>
                                             </s.Container>
                                             <s.SpacerMedium />
-                                            {/* <s.TextDescription
+                                            <s.TextDescription
 
                                                 style={{
                                                     textAlign: "center",
-                                                    color: "rgb(112, 161, 250)",
+                                                    color: "#024d1e",
                                                     fontSize: "16px",
                                                     fontFamily: "customfont",
                                                     fontWeight: "700",
                                                 }}
                                             >
-                                                Minting enabled at 11am PST<br/>
-                                                Only 1 free claim per whitelisted wallet<br/>
-                                            </s.TextDescription> */}
+                                                Max 2 mints per whitelisted wallet<br/>
+                                            </s.TextDescription>
 
                                         </>
                                     )}
