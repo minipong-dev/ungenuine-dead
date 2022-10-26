@@ -394,7 +394,7 @@ function App() {
                                                     fontWeight: "700",
                                                 }}
                                             >
-                                                Mints Remaining: {(blockchain.totalSupply ? (CONFIG.MAX_SUPPLY - blockchain.totalSupply) : CONFIG.MAX_SUPPLY)} / {CONFIG.MAX_SUPPLY}<br/>
+                                                Mints Remaining: {(data.totalSupply ? (CONFIG.MAX_SUPPLY - data.totalSupply) : CONFIG.MAX_SUPPLY)} / {CONFIG.MAX_SUPPLY}<br/>
                                                 Whitelist: .003 ETH<br/>
                                                 Public: .005 ETH<br/>
                                             </s.TextDescription>
