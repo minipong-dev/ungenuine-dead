@@ -255,8 +255,8 @@ function App() {
 
     const incrementMintAmount = () => {
         let newMintAmount = mintAmount + 1;
-        if (newMintAmount > 10) {
-            newMintAmount = 10;
+        if (newMintAmount > 5) {
+            newMintAmount = 5;
         }
         setMintAmount(newMintAmount);
     };
@@ -370,22 +370,6 @@ function App() {
 
 
                                             </StyledButton>
-
-                                            {invalidMint !== "" ? (
-                                                <>
-                                                    <s.SpacerSmall />
-                                                    <s.TextDescription
-
-                                                        style={{
-                                                            textAlign: "center",
-                                                            color: "#024d1e",
-                                                            fontFamily: "customfont",
-                                                        }}
-                                                    >
-                                                        {invalidMint}
-                                                    </s.TextDescription>
-                                                </>
-                                            ) : null}
                                             
                                             {blockchain.errorMsg !== "" ? (
                                                 <>
@@ -524,12 +508,25 @@ function App() {
                                                 </StyledButton>
                                             </s.Container>
                                             <s.SpacerMedium />
+
                                             <s.TextDescription
 
                                                 style={{
                                                     textAlign: "center",
                                                     color: "#024d1e",
-                                                    fontSize: "16px",
+                                                    fontSize: "20px",
+                                                    fontFamily: "customfont",
+                                                }}
+                                            >
+                                                {invalidMint}
+                                            </s.TextDescription>
+
+                                            <s.TextDescription
+
+                                                style={{
+                                                    textAlign: "center",
+                                                    color: "#024d1e",
+                                                    fontSize: "20px",
                                                     fontFamily: "customfont",
                                                     fontWeight: "700",
                                                 }}
