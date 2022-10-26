@@ -394,8 +394,8 @@ function App() {
                                                     fontWeight: "700",
                                                 }}
                                             >
-                                                Remaining Supply: {(data.totalSupply ? (CONFIG.MAX_SUPPLY - data.totalSupply) : CONFIG.MAX_SUPPLY)} / {CONFIG.MAX_SUPPLY}<br/>
-                                                2222 Whitelist / 1111 Public<br/>
+                                                Remaining Supply: {(data.totalSupply ? (CONFIG.MAX_SUPPLY - data.totalSupply) : CONFIG.MAX_SUPPLY)}/{CONFIG.MAX_SUPPLY}<br/>
+                                                2222 Whitelist // 1111 Public<br/><br/>
                                                 Whitelist: .003 ETH<br/>
                                                 Public: .005 ETH<br/>
                                             </s.TextDescription>
